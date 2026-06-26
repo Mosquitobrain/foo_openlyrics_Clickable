@@ -690,6 +690,7 @@ void ExternalLyricWindow::DrawTimestampedLyrics(D2DTextRenderContext& render)
     int origin_y = get_text_origin_y(canvas_size, render.font_ascent_px, render.font_descent_px);
     origin_y -= text_height_above_active_line + next_line_scroll;
 
+    m_line_y_bounds.clear();
     const int lyric_line_count = static_cast<int>(m_lyrics.lines.size());
     for(int line_index = 0; line_index < lyric_line_count; line_index++)
     {
@@ -713,6 +714,7 @@ void ExternalLyricWindow::DrawTimestampedLyrics(D2DTextRenderContext& render)
             render.brush->SetColor(colour_gdi2dx(main_text_colour));
         }
 
+        int start_y = origin_y;
         int wrapped_line_height = DrawWrappedLyricLine(render, canvas_size, line.text, origin_y);
         if(wrapped_line_height == 0)
         {
@@ -721,6 +723,7 @@ void ExternalLyricWindow::DrawTimestampedLyrics(D2DTextRenderContext& render)
             break;
         }
 
+        m_line_y_bounds.push_back({start_y, start_y + wrapped_line_height});
         origin_y += wrapped_line_height;
     }
 }

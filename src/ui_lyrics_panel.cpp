@@ -855,6 +855,7 @@ void LyricPanel::DrawTimestampedLyrics(HDC dc, CRect client_area)
     CPoint origin = get_text_origin(client_area, font_metrics);
     origin.y -= text_height_above_active_line + next_line_scroll;
 
+    m_line_y_bounds.clear();
     const int lyric_line_count = static_cast<int>(m_lyrics.lines.size());
     for(int line_index = 0; line_index < lyric_line_count; line_index++)
     {
@@ -878,6 +879,7 @@ void LyricPanel::DrawTimestampedLyrics(HDC dc, CRect client_area)
             SetTextColor(dc, main_text_colour);
         }
 
+        int start_y = origin.y - font_metrics.tmAscent;
         int wrapped_line_height = DrawWrappedLyricLine(dc, client_area, line.text, origin);
         if(wrapped_line_height == 0)
         {
@@ -886,6 +888,7 @@ void LyricPanel::DrawTimestampedLyrics(HDC dc, CRect client_area)
             break;
         }
 
+        m_line_y_bounds.push_back({start_y, start_y + wrapped_line_height});
         origin.y += wrapped_line_height;
     }
 }
@@ -1432,11 +1435,28 @@ void LyricPanel::OnMouseMove(UINT /*virtualKeys*/, CPoint point)
 void LyricPanel::OnLMBDown(UINT /*virtualKeys*/, CPoint point)
 {
     m_manual_scroll_start = point;
+    m_click_start = point;
     SetCapture();
 }
 
-void LyricPanel::OnLMBUp(UINT /*virtualKeys*/, CPoint /*point*/)
+void LyricPanel::OnLMBUp(UINT /*virtualKeys*/, CPoint point)
 {
+    if (m_click_start.has_value()) {
+        const int dist_x = point.x - m_click_start.value().x;
+        const int dist_y = point.y - m_click_start.value().y;
+        const bool is_click = (dist_x * dist_x + dist_y * dist_y) < 25; // 5 pixels threshold
+
+        if (is_click && m_lyrics.IsTimestamped()) {
+            for (size_t i = 0; i < m_line_y_bounds.size(); ++i) {
+                if (point.y >= m_line_y_bounds[i].first && point.y <= m_line_y_bounds[i].second) {
+                    double time = m_lyrics.LineTimestamp(i);
+                    playback_control::get()->playback_seek(time);
+                    break;
+                }
+            }
+        }
+    }
+    m_click_start.reset();
     m_manual_scroll_start.reset();
     ReleaseCapture();
 }

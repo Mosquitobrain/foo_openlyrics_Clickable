@@ -117,7 +117,9 @@ private:
     HBITMAP m_back_buffer_bitmap;
 
     std::optional<CPoint> m_manual_scroll_start;
+    std::optional<CPoint> m_click_start;
     int m_manual_scroll_distance;
+    std::vector<std::pair<int, int>> m_line_y_bounds;
 
     now_playing_album_art_notify* m_albumart_listen_handle = nullptr;
     Image m_albumart_original = {};
