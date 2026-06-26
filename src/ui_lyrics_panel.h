@@ -119,7 +119,6 @@ private:
     std::optional<CPoint> m_manual_scroll_start;
     std::optional<CPoint> m_click_start;
     int m_manual_scroll_distance;
-    std::vector<std::pair<int, int>> m_line_y_bounds;
 
     now_playing_album_art_notify* m_albumart_listen_handle = nullptr;
     Image m_albumart_original = {};
@@ -127,6 +126,7 @@ private:
 
 protected: // TODO: Only protected to support the external window
     Image m_background_img = {};
+    std::vector<std::pair<int, int>> m_line_y_bounds;
     // TODO: We should consolidate the panel implementations:
     // Once we have metrics showing people actually use the external window,
     // we can update the regular implementation to use D2D as well and then
