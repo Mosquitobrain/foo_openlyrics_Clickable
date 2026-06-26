@@ -18,6 +18,7 @@ static const GUID GUID_CFG_SEARCH_EXCLUDE_TRAILING_BRACKETS = { 0x2cbdf6c3, 0xdb
 static const GUID GUID_CFG_SEARCH_SKIP_FILTER = { 0x4c6e3dac, 0xb668, 0x4056, { 0x8c, 0xb7, 0x52, 0x89, 0x1a, 0x57, 0x1f, 0x3a } };
 static const GUID GUID_CFG_SEARCH_PREFERRED_LYRIC_TYPE = { 0x66b4edf6, 0x7995, 0x4d52, { 0xa9, 0xa, 0x12, 0xdf, 0xf7, 0xa, 0x11, 0xa2 } };
 static const GUID GUID_CFG_SEARCH_WITHOUT_LYRIC_PANELS = { 0x3d29b9eb, 0x4454, 0x4798, { 0x9b, 0x33, 0x4b, 0xb5, 0xbf, 0x44, 0x4a, 0x7f } };
+static const GUID GUID_CFG_SEARCH_ONLY_PREFERRED_TYPE = { 0x4e3ac1db, 0x5565, 0x5809, { 0xac, 0x44, 0x5c, 0xc6, 0xc0, 0x55, 0x5b, 0x80 } };
 // clang-format on
 
 static cfg_auto_combo_option<LyricType> preferred_lyric_type_options[] = { { _T("Synced"), LyricType::Synced },
@@ -37,11 +38,15 @@ static cfg_auto_combo<LyricType, 2> cfg_search_preferred_lyric_type(GUID_CFG_SEA
 static cfg_auto_bool cfg_search_without_lyric_panels(GUID_CFG_SEARCH_WITHOUT_LYRIC_PANELS,
                                                      IDC_SEARCH_WITHOUT_PANELS,
                                                      false);
+static cfg_auto_bool cfg_search_only_preferred_type(GUID_CFG_SEARCH_ONLY_PREFERRED_TYPE,
+                                                    IDC_SEARCH_ONLY_PREFERRED_TYPE,
+                                                    false);
 
 static cfg_auto_property* g_searching_auto_properties[] = {
     &cfg_search_exclude_trailing_brackets,
     &cfg_search_skip_filter,
     &cfg_search_preferred_lyric_type,
+    &cfg_search_only_preferred_type,
     &cfg_search_without_lyric_panels,
 };
 
@@ -58,6 +63,11 @@ const pfc::string8& preferences::searching::skip_filter()
 LyricType preferences::searching::preferred_lyric_type()
 {
     return cfg_search_preferred_lyric_type.get_value();
+}
+
+bool preferences::searching::only_download_preferred_type()
+{
+    return cfg_search_only_preferred_type.get_value();
 }
 
 bool preferences::searching::should_search_without_panels()

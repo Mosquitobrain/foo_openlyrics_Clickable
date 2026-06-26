@@ -357,6 +357,15 @@ static void internal_search_for_lyrics(LyricSearchHandle& handle, bool local_onl
                     continue;
                 }
 
+                if(preferences::searching::only_download_preferred_type() && result.type != preferences::searching::preferred_lyric_type())
+                {
+                    LOG_INFO("Rejected %s search result for type mismatch: User prefers %d and result is %d",
+                             friendly_name.c_str(),
+                             static_cast<int>(preferences::searching::preferred_lyric_type()),
+                             static_cast<int>(result.type));
+                    continue;
+                }
+
                 assert(result.source_id == source_id);
                 if(result.lookup_id.empty())
                 {

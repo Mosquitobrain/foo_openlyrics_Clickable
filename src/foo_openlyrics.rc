@@ -219,6 +219,8 @@ BEGIN
     LTEXT           "Filter result:",IDC_STATIC,7,237,36,8
     COMBOBOX        IDC_SEARCH_PREFERRED_TYPE,75,24,83,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Preferred lyric type:",IDC_STATIC,7,26,61,8
+    CONTROL         "Only find preferred lyric type",IDC_SEARCH_ONLY_PREFERRED_TYPE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,165,26,150,10
     CONTROL         "Automatically search remote sources for lyrics when a new track starts, even when there are no visible openlyrics panels on the UI",IDC_SEARCH_WITHOUT_PANELS,
                     "Button",BS_AUTOCHECKBOX | BS_TOP | BS_MULTILINE | WS_TABSTOP,7,44,242,20
     PUSHBUTTON      "?",IDC_SEARCHING_EXCLUDE_HELP,306,2,14,14

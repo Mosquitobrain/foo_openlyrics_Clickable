@@ -105,6 +105,7 @@ namespace preferences
         bool exclude_trailing_brackets();
         const pfc::string8& skip_filter();
         LyricType preferred_lyric_type();
+        bool only_download_preferred_type();
         bool should_search_without_panels();
 
         std::vector<std::string> tags();

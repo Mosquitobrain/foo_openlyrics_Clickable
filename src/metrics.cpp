@@ -351,6 +351,7 @@ std::string collect_metrics(abort_callback& abort, bool is_dark_mode, size_t num
                               preferences::searching::raw::is_skip_filter_default());
         cJSON_AddStringToObject(json_cfg, "search_auto_edits", auto_edit_str.c_str());
         cJSON_AddNumberToObject(json_cfg, "preferred_lyric_type", int(preferences::searching::preferred_lyric_type()));
+        cJSON_AddBoolToObject(json_cfg, "only_download_preferred_type", preferences::searching::only_download_preferred_type());
         cJSON_AddBoolToObject(json_cfg,
                               "search_without_lyric_panels",
                               preferences::searching::should_search_without_panels());
