@@ -2,7 +2,7 @@
 
 ![build-and-test workflow](https://github.com/jacquesh/foo_openlyrics/actions/workflows/run_tests.yml/badge.svg)
 
-An open-source lyrics plugin for [foobar2000](https://www.foobar2000.org/) that includes its own UI panel for displaying and sources for downloading lyrics that are not available locally. It is intended to be a replacement for LyricShowPanel3 so it is fully-featured and supports lyric searching, saving and editing directly from within foobar2000.
+Fork of foo_openlyrics that provides clickable lyric lines like spotify so you can click on a line and skip to it! Not gonna open a PR because I used AI to assist with modifying the plugin and I feel like it would be disingenuous to commit AI code to a project. 
 
 ## Features
 * Buttery-smooth lyric scrolling
