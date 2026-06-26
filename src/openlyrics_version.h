@@ -6,5 +6,5 @@
 #ifdef NDEBUG
 #include "openlyrics_version_generated.h" // Defines OPENLYRICS_VERSION
 #else
-#define OPENLYRICS_VERSION "0.0-alpha"
+#define OPENLYRICS_VERSION "1.2-clickable"
 #endif

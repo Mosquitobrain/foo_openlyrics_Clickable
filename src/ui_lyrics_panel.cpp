@@ -1446,7 +1446,7 @@ void LyricPanel::OnLMBUp(UINT /*virtualKeys*/, CPoint point)
         const int dist_y = point.y - m_click_start.value().y;
         const bool is_click = (dist_x * dist_x + dist_y * dist_y) < 25; // 5 pixels threshold
 
-        if (is_click && m_lyrics.IsTimestamped()) {
+        if (is_click && m_lyrics.IsTimestamped() && preferences::display::click_to_seek()) {
             for (size_t i = 0; i < m_line_y_bounds.size(); ++i) {
                 if (point.y >= m_line_y_bounds[i].first && point.y <= m_line_y_bounds[i].second) {
                     double time = m_lyrics.LineTimestamp(i);

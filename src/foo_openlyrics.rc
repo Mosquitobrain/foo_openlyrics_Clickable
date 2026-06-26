@@ -101,6 +101,8 @@ BEGIN
     LTEXT           "Scroll type:",IDC_STATIC,7,137,36,8
     CONTROL         "Continuous scrolling",IDC_DISPLAY_SCROLL_CONTINUOUS,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,157,79,10
+    CONTROL         "Click to skip/rewind",IDC_DISPLAY_CLICK_TO_SEEK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,157,100,10
     GROUPBOX        "Other",IDC_STATIC,0,206,326,54
     LTEXT           "Highlight fade time",IDC_STATIC,7,217,59,8
     CONTROL         "",IDC_DISPLAY_HIGHLIGHT_FADE_TIME,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,83,214,229,15

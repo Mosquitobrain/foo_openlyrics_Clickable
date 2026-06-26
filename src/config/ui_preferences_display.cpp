@@ -30,6 +30,7 @@ static const GUID GUID_CFG_DISPLAY_HIGHLIGHT_FADE_TIME = { 0x63c31bb9, 0x2a83, 0
 static const GUID GUID_CFG_DISPLAY_PASTTEXT_COLOUR = { 0x8189faa4, 0x40f2, 0x464b, { 0x9e, 0xb, 0x53, 0xd2, 0x6, 0x9c, 0x74, 0xc9 } };
 static const GUID GUID_CFG_DISPLAY_PASTTEXT_COLOURTYPE = { 0xc7b2908, 0x2ce2, 0x46e8, { 0xa1, 0x46, 0x51, 0xe2, 0x60, 0x0, 0xde, 0xdc } };
 static const GUID GUID_CFG_DISPLAY_TEXT_ALIGNMENT = { 0xfd228452, 0x6374, 0x4496, { 0xb9, 0xec, 0x19, 0xb9, 0x50, 0x2, 0xb, 0xaa } };
+static const GUID GUID_CFG_DISPLAY_CLICK_TO_SEEK = { 0x1a2b3c4d, 0x5e6f, 0x7a8b, { 0x9c, 0x0d, 0x1e, 0x2f, 0x3a, 0x4b, 0x5c, 0x6d } };
 // clang-format on
 
 static const COLORREF cfg_display_fg_colour_default = RGB(35, 85, 125);
@@ -109,6 +110,9 @@ static cfg_auto_combo<TextAlignment, 6> cfg_display_text_alignment(GUID_CFG_DISP
                                                                    IDC_TEXT_ALIGNMENT,
                                                                    TextAlignment::MidCentre,
                                                                    g_text_alignment_options);
+static cfg_auto_bool cfg_display_click_to_seek(GUID_CFG_DISPLAY_CLICK_TO_SEEK,
+                                               IDC_DISPLAY_CLICK_TO_SEEK,
+                                               true);
 
 static cfg_auto_property* g_display_auto_properties[] = {
     &cfg_display_custom_font,      &cfg_display_custom_fg_colour,
@@ -120,6 +124,7 @@ static cfg_auto_property* g_display_auto_properties[] = {
     &cfg_display_scroll_time,      &cfg_display_scroll_type,
 
     &cfg_display_text_alignment,   &cfg_display_highlight_fade_time,
+    &cfg_display_click_to_seek,
 };
 
 //
@@ -209,6 +214,11 @@ t_ui_color preferences::display::past_text_colour()
 double preferences::display::highlight_fade_seconds()
 {
     return static_cast<double>(cfg_display_highlight_fade_time.get_value()) / 1000.0;
+}
+
+bool preferences::display::click_to_seek()
+{
+    return cfg_display_click_to_seek.get_value();
 }
 
 int preferences::display::linegap()

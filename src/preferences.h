@@ -156,6 +156,7 @@ namespace preferences
         int linegap();
 
         bool debug_logs_enabled();
+        bool click_to_seek();
 
         namespace raw
         {
